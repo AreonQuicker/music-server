@@ -1,0 +1,52 @@
+{
+  "name": "music-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "get-schema": "graphql get-schema -p prisma --dotenv config/dev.env",
+    "deploy": "prisma deploy --env-file config/dev.env",
+    "build:dev": "webpack",
+    "build:prod": "webpack -p --env production",
+    "build:babel": "babel src --out-dir dist --copy-files",
+    "start": "node dist/index.js",
+    "start:dev": "env-cmd ./config/dev.env node dist/index.js"
+  },
+  "author": "Gideon",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/polyfill": "^7.2.5",
+    "apollo-boost": "^0.1.27",
+    "apollo-client": "^2.4.12",
+    "apollo-link": "^1.2.6",
+    "apollo-link-error": "^1.1.5",
+    "apollo-link-http": "^1.5.9",
+    "apollo-link-ws": "^1.0.12",
+    "apollo-utilities": "^1.1.2",
+    "babel-cli": "6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-polyfill": "6.26.0",
+    "babel-preset-env": "1.7.0",
+    "babel-preset-react": "6.24.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.2.0",
+    "env-cmd": "^8.0.2",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "graphql": "^14.1.1",
+    "graphql-cli": "^3.0.5",
+    "graphql-yoga": "^1.17.0",
+    "jsonwebtoken": "^8.4.0",
+    "nodemon": "^1.18.9",
+    "path": "^0.12.7",
+    "prisma-binding": "^2.2.14",
+    "subscriptions-transport-ws": "^0.9.15",
+    "webpack": "^4.29.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.2.1"
+  }
+}
