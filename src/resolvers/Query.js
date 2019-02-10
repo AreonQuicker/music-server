@@ -1,7 +1,7 @@
 const { forwardTo } = require('prisma-binding');
 
 const Query = {
-    users: forwardTo('db')
+    songs: forwardTo('prisma')
 }
 
 export { Query as default }

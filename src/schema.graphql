@@ -1,11 +1,5 @@
 # import * from './generated/prisma.graphql'
 
-type User {
-  id: ID!
-  name: String!
-}
-
-
 type Query {
- users(query: String): [User!]!
+  songs(where: SongWhereInput, orderBy: SongOrderByInput, skip: Int, first: Int): [Song]!
 }

@@ -1,5 +1,5 @@
-const Mutation = {
-   
+const Mutation = {  
+  
 }
 
 export { Mutation as default }
