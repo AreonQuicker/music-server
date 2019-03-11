@@ -2,4 +2,5 @@
 
 type Query {
   songs(where: SongWhereInput, orderBy: SongOrderByInput, skip: Int, first: Int): [Song]!
+  songs2(where: SongWhereInput, orderBy: SongOrderByInput, skip: Int, first: Int): [Song]!
 }
