@@ -3,4 +3,9 @@
 type Query {
   songs(where: SongWhereInput, orderBy: SongOrderByInput, skip: Int, first: Int): [Song]!
   songs2(where: SongWhereInput, orderBy: SongOrderByInput, skip: Int, first: Int): [Song]!
+ 
+}
+
+type Mutation{
+ createSong(name: String!, desc: String!, downloadPath: String!): Song!
 }
