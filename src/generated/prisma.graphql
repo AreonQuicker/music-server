@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/gideon-harmse/music-server/dev
-# timestamp: Sun Feb 03 2019 11:58:28 GMT+0200 (South Africa Standard Time)
+# timestamp: Wed Apr 17 2019 20:28:05 GMT+0200 (South Africa Standard Time)
 
 type AggregateSong {
   count: Int!
@@ -83,7 +83,9 @@ type Song implements Node {
   id: ID!
   uploadedAuthor: User
   name: String!
-  desc: String!
+  artist: String
+  album: String
+  desc: String
   downloadPath: String
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -100,8 +102,11 @@ type SongConnection {
 }
 
 input SongCreateInput {
+  id: ID
   name: String!
-  desc: String!
+  artist: String
+  album: String
+  desc: String
   downloadPath: String
   uploadedAuthor: UserCreateOneWithoutSongsUploadedInput
 }
@@ -112,8 +117,11 @@ input SongCreateManyWithoutUploadedAuthorInput {
 }
 
 input SongCreateWithoutUploadedAuthorInput {
+  id: ID
   name: String!
-  desc: String!
+  artist: String
+  album: String
+  desc: String
   downloadPath: String
 }
 
@@ -131,6 +139,10 @@ enum SongOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  artist_ASC
+  artist_DESC
+  album_ASC
+  album_DESC
   desc_ASC
   desc_DESC
   downloadPath_ASC
@@ -144,7 +156,9 @@ enum SongOrderByInput {
 type SongPreviousValues {
   id: ID!
   name: String!
-  desc: String!
+  artist: String
+  album: String
+  desc: String
   downloadPath: String
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -239,6 +253,86 @@ input SongScalarWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  artist: String
+
+  """All values that are not equal to given value."""
+  artist_not: String
+
+  """All values that are contained in given list."""
+  artist_in: [String!]
+
+  """All values that are not contained in given list."""
+  artist_not_in: [String!]
+
+  """All values less than the given value."""
+  artist_lt: String
+
+  """All values less than or equal the given value."""
+  artist_lte: String
+
+  """All values greater than the given value."""
+  artist_gt: String
+
+  """All values greater than or equal the given value."""
+  artist_gte: String
+
+  """All values containing the given string."""
+  artist_contains: String
+
+  """All values not containing the given string."""
+  artist_not_contains: String
+
+  """All values starting with the given string."""
+  artist_starts_with: String
+
+  """All values not starting with the given string."""
+  artist_not_starts_with: String
+
+  """All values ending with the given string."""
+  artist_ends_with: String
+
+  """All values not ending with the given string."""
+  artist_not_ends_with: String
+  album: String
+
+  """All values that are not equal to given value."""
+  album_not: String
+
+  """All values that are contained in given list."""
+  album_in: [String!]
+
+  """All values that are not contained in given list."""
+  album_not_in: [String!]
+
+  """All values less than the given value."""
+  album_lt: String
+
+  """All values less than or equal the given value."""
+  album_lte: String
+
+  """All values greater than the given value."""
+  album_gt: String
+
+  """All values greater than or equal the given value."""
+  album_gte: String
+
+  """All values containing the given string."""
+  album_contains: String
+
+  """All values not containing the given string."""
+  album_not_contains: String
+
+  """All values starting with the given string."""
+  album_starts_with: String
+
+  """All values not starting with the given string."""
+  album_not_starts_with: String
+
+  """All values ending with the given string."""
+  album_ends_with: String
+
+  """All values not ending with the given string."""
+  album_not_ends_with: String
   desc: String
 
   """All values that are not equal to given value."""
@@ -382,9 +476,7 @@ input SongSubscriptionWhereInput {
   """Logical NOT on all given filters combined by AND."""
   NOT: [SongSubscriptionWhereInput!]
 
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
+  """The subscription event gets dispatched when it's listed in mutation_in"""
   mutation_in: [MutationType!]
 
   """
@@ -406,6 +498,8 @@ input SongSubscriptionWhereInput {
 
 input SongUpdateInput {
   name: String
+  artist: String
+  album: String
   desc: String
   downloadPath: String
   uploadedAuthor: UserUpdateOneWithoutSongsUploadedInput
@@ -413,12 +507,16 @@ input SongUpdateInput {
 
 input SongUpdateManyDataInput {
   name: String
+  artist: String
+  album: String
   desc: String
   downloadPath: String
 }
 
 input SongUpdateManyMutationInput {
   name: String
+  artist: String
+  album: String
   desc: String
   downloadPath: String
 }
@@ -442,6 +540,8 @@ input SongUpdateManyWithWhereNestedInput {
 
 input SongUpdateWithoutUploadedAuthorDataInput {
   name: String
+  artist: String
+  album: String
   desc: String
   downloadPath: String
 }
@@ -546,6 +646,86 @@ input SongWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  artist: String
+
+  """All values that are not equal to given value."""
+  artist_not: String
+
+  """All values that are contained in given list."""
+  artist_in: [String!]
+
+  """All values that are not contained in given list."""
+  artist_not_in: [String!]
+
+  """All values less than the given value."""
+  artist_lt: String
+
+  """All values less than or equal the given value."""
+  artist_lte: String
+
+  """All values greater than the given value."""
+  artist_gt: String
+
+  """All values greater than or equal the given value."""
+  artist_gte: String
+
+  """All values containing the given string."""
+  artist_contains: String
+
+  """All values not containing the given string."""
+  artist_not_contains: String
+
+  """All values starting with the given string."""
+  artist_starts_with: String
+
+  """All values not starting with the given string."""
+  artist_not_starts_with: String
+
+  """All values ending with the given string."""
+  artist_ends_with: String
+
+  """All values not ending with the given string."""
+  artist_not_ends_with: String
+  album: String
+
+  """All values that are not equal to given value."""
+  album_not: String
+
+  """All values that are contained in given list."""
+  album_in: [String!]
+
+  """All values that are not contained in given list."""
+  album_not_in: [String!]
+
+  """All values less than the given value."""
+  album_lt: String
+
+  """All values less than or equal the given value."""
+  album_lte: String
+
+  """All values greater than the given value."""
+  album_gt: String
+
+  """All values greater than or equal the given value."""
+  album_gte: String
+
+  """All values containing the given string."""
+  album_contains: String
+
+  """All values not containing the given string."""
+  album_not_contains: String
+
+  """All values starting with the given string."""
+  album_starts_with: String
+
+  """All values not starting with the given string."""
+  album_not_starts_with: String
+
+  """All values ending with the given string."""
+  album_ends_with: String
+
+  """All values not ending with the given string."""
+  album_not_ends_with: String
   desc: String
 
   """All values that are not equal to given value."""
@@ -684,7 +864,10 @@ type Subscription {
 
 type User implements Node {
   id: ID!
-  name: String!
+  name: String
+  userName: String!
+  email: String!
+  password: String!
   songsUploaded(where: SongWhereInput, orderBy: SongOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Song!]
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -701,7 +884,11 @@ type UserConnection {
 }
 
 input UserCreateInput {
-  name: String!
+  id: ID
+  name: String
+  userName: String!
+  email: String!
+  password: String!
   songsUploaded: SongCreateManyWithoutUploadedAuthorInput
 }
 
@@ -711,7 +898,11 @@ input UserCreateOneWithoutSongsUploadedInput {
 }
 
 input UserCreateWithoutSongsUploadedInput {
-  name: String!
+  id: ID
+  name: String
+  userName: String!
+  email: String!
+  password: String!
 }
 
 """An edge in a connection."""
@@ -728,6 +919,12 @@ enum UserOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  userName_ASC
+  userName_DESC
+  email_ASC
+  email_DESC
+  password_ASC
+  password_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -736,7 +933,10 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
-  name: String!
+  name: String
+  userName: String!
+  email: String!
+  password: String!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -758,9 +958,7 @@ input UserSubscriptionWhereInput {
   """Logical NOT on all given filters combined by AND."""
   NOT: [UserSubscriptionWhereInput!]
 
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
+  """The subscription event gets dispatched when it's listed in mutation_in"""
   mutation_in: [MutationType!]
 
   """
@@ -782,11 +980,17 @@ input UserSubscriptionWhereInput {
 
 input UserUpdateInput {
   name: String
+  userName: String
+  email: String
+  password: String
   songsUploaded: SongUpdateManyWithoutUploadedAuthorInput
 }
 
 input UserUpdateManyMutationInput {
   name: String
+  userName: String
+  email: String
+  password: String
 }
 
 input UserUpdateOneWithoutSongsUploadedInput {
@@ -800,6 +1004,9 @@ input UserUpdateOneWithoutSongsUploadedInput {
 
 input UserUpdateWithoutSongsUploadedDataInput {
   name: String
+  userName: String
+  email: String
+  password: String
 }
 
 input UserUpsertWithoutSongsUploadedInput {
@@ -896,6 +1103,126 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  userName: String
+
+  """All values that are not equal to given value."""
+  userName_not: String
+
+  """All values that are contained in given list."""
+  userName_in: [String!]
+
+  """All values that are not contained in given list."""
+  userName_not_in: [String!]
+
+  """All values less than the given value."""
+  userName_lt: String
+
+  """All values less than or equal the given value."""
+  userName_lte: String
+
+  """All values greater than the given value."""
+  userName_gt: String
+
+  """All values greater than or equal the given value."""
+  userName_gte: String
+
+  """All values containing the given string."""
+  userName_contains: String
+
+  """All values not containing the given string."""
+  userName_not_contains: String
+
+  """All values starting with the given string."""
+  userName_starts_with: String
+
+  """All values not starting with the given string."""
+  userName_not_starts_with: String
+
+  """All values ending with the given string."""
+  userName_ends_with: String
+
+  """All values not ending with the given string."""
+  userName_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
   updatedAt: DateTime
 
   """All values that are not equal to given value."""

@@ -1,17 +1,22 @@
 type User {
-  id: ID! @unique
-  name: String!
+  id: ID! @unique @id
+  name: String
+  userName: String!
+  email: String!
+  password: String!
   songsUploaded: [Song!] @relation(name: "UserSongsUploaded", onDelete: SET_NULL)
-  updatedAt: DateTime!
-  createdAt: DateTime!
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
 }
 
 type Song{
- id: ID! @unique
+ id: ID! @unique @id
  uploadedAuthor: User @relation(name: "UserSongsUploaded", onDelete: SET_NULL)
- name : String!
- desc : String!
- downloadPath : String
- updatedAt: DateTime!
- createdAt: DateTime!
+ name: String!
+ artist: String
+ album: String
+ desc: String
+ downloadPath: String
+ updatedAt: DateTime! @updatedAt
+ createdAt: DateTime! @createdAt
 }
