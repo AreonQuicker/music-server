@@ -10,6 +10,7 @@ type Query {
 type Mutation{
  createSong(name: String!, artist: String, album: String, downloadPath: String): Song!
  signUp(userName: String!, email: String!, password: String!): Token!
+ signIn(email: String!, password: String!): Token!
 }
 
 type Token{

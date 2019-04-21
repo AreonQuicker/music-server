@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/gideon-harmse/music-server/dev
-# timestamp: Wed Apr 17 2019 20:28:05 GMT+0200 (South Africa Standard Time)
+# timestamp: Fri Apr 19 2019 23:08:31 GMT+0200 (South Africa Standard Time)
 
 type AggregateSong {
   count: Int!
@@ -1274,4 +1274,5 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  email: String
 }

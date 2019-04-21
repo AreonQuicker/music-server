@@ -1,3 +1,5 @@
+import { validateEmail, validatePassword } from '../utils/utils';
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -24,9 +26,15 @@ const Mutation = {
   },
 
   async signUp(parent, args, { prisma, request }, info) {
-    const password = await bcrypt.hash(args.password, 10);
+    if (!validateEmail(args.email)) {
+      throw new Error('Invalid email.');
+    }
 
-    console.log(password);
+    if (!validatePassword(args.password)) {
+      throw new Error('Invalid password.');
+    }
+
+    const password = await bcrypt.hash(args.password, 10);
 
     const createdUser = await prisma.mutation.createUser(
       {
@@ -40,16 +48,14 @@ const Mutation = {
         }`
     );
 
-    const user = (await prisma.query.users(
+    const user = await prisma.query.user(
       {
         where: {
           id: createdUser.id,
         },
       },
       info
-    ))[0];
-
-    console.log(user);
+    );
 
     const token = jwt.sign({ userId: createdUser.id }, process.env.APP_SECRET);
 
@@ -59,21 +65,33 @@ const Mutation = {
     };
   },
 
-  // async signin(parent, { email, password }, ctx, info) {
-  //   const user = await ctx.db.query.user({ where: { email } });
-  //   if (!user) {
-  //     throw new Error(`No such user found for email ${email}`);
-  //   }
+  async signIn(parent, { email, password }, { prisma, request }, info) {
+    const validateUser = await prisma.query.user({ where: { email } });
+    if (!validateUser) {
+      throw new Error(`No such user found for email ${email}`);
+    }
 
-  //   const valid = await bcrypt.compare(password, user.password);
-  //   if (!valid) {
-  //     throw new Error('Invalid Password!');
-  //   }
+    const valid = await bcrypt.compare(password, validateUser.password);
+    if (!valid) {
+      throw new Error('Invalid Password!');
+    }
 
-  //   const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+    const user = await prisma.query.user(
+      {
+        where: {
+          id: validateUser.id,
+        },
+      },
+      info
+    );
 
-  //   return user;
-  // },
+    const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+
+    return {
+      ...user,
+      token,
+    };
+  },
 };
 
 export { Mutation as default };

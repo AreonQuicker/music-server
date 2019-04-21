@@ -8,10 +8,12 @@ server.express.use(cookieParser());
 
 // TODO
 server.express.use(async (req, res, next) => {
-  const { authorization: token = null } = req.headers;
-  if (token) {
-    const { userId } = jwt.verify(token, process.env.APP_SECRET);
-    req.userId = userId;
+  const { authorization: token } = req.headers || {};
+  if (token && token !== 'null') {
+    try {
+      const { userId } = jwt.verify(token, process.env.APP_SECRET);
+      req.userId = userId;
+    } catch (error) {}
   }
   next();
 });
